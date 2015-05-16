@@ -20,7 +20,7 @@ def api():
 
 
 def random_fact():
-    return FACTS[randrange(len(FACTS))]
+    return FACTS[randrange(len(FACTS)-1)]
 
 
 if __name__ == "__main__":
