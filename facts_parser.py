@@ -11,11 +11,15 @@ class FactsParser(object):
             self.file_content = f.read()
 
     def get_facts(self):
-        regex = re.compile(r': (.*?#facts)', re.UNICODE)
-        return regex.findall(self.file_content)
+        regex = re.compile(r': (.+#facts)', re.UNICODE)
+        self.facts = regex.findall(self.file_content)
 
     def write_file(self):
+        try:
+            self.facts
+        except AttributeError:
+            self.get_facts()
         date = datetime.now().isoformat()
         filename = "{}_facts.txt".format(date)
         with open (filename, 'w') as self.output_file:
-            self.output_file.write(self.get_facts())
+            self.output_file.write('\n'.join(self.facts))
